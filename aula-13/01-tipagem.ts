@@ -5,11 +5,13 @@ let numero: number
 let numero2 = 2
 
 numero = 10
-numero = "50"
+// dá erro
+// numero = "50"
 numero = 4
 
 numero2 = 60
-numero2 = "10"
+// dá erro
+// numero2 = "10"
 numero2 = 43
 
 // let ganhouPartida: boolean
