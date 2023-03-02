@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
+    "luxon": "^3.2.1",
     "prompt-sync": "^4.2.0"
   }
 }
