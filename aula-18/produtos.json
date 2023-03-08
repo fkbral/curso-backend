@@ -1,0 +1,35 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Pair of Socks",
+      "amountInStock": 100,
+      "unitValue": 5
+    },
+    {
+      "id": 2,
+      "name": "T-Shirt",
+      "amountInStock": 500,
+      "unitValue": 45
+    },
+    {
+      "id": 3,
+      "name": "Jacket",
+      "amountInStock": 30,
+      "unitValue": 180,
+      "barCode": "d3ec0645-955a-4612-a61b-1dc8c2106b21"
+    },
+    {
+      "id": 4,
+      "name": "Shorts",
+      "amountInStock": 70,
+      "unitValue": 80
+    },
+    {
+      "name": "Dress",
+      "amountInStock": 5,
+      "unitValue": 230,
+      "id": 5
+    }
+  ]
+}
