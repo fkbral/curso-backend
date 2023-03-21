@@ -1,25 +1,63 @@
-import express from 'express'
-import { config } from 'dotenv'
-import path from 'path'
-import { userRoutes } from './routes/UserRoutes'
-import cors from 'cors'
+import express, { NextFunction, Request, Response } from "express";
+import { config } from "dotenv";
+import path from "path";
+import { User, userRoutes } from "./routes/UserRoutes";
+import cors from "cors";
+import { loggerMiddleware } from "./middlewares/logger";
+import { authMiddleware } from "./middlewares/auth";
+import { sign } from "jsonwebtoken";
+import { readFileSync } from "fs";
 
-config()
-const app = express()
-app.use(express.json())
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(cors())
-const url = process.env.API_BASE_URL ?? 'http://localhost'
-const port = process.env.API_PORT ?? 3300
+config();
+const app = express();
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
+
+app.use(loggerMiddleware);
+
+type SessionCreateDTO = {
+  email: string
+  password: string
+}
+
+const dbJsonPath = path.resolve(process.cwd(), 'server.json')
+const dbJsonRaw = readFileSync(dbJsonPath)
+const dbJson = JSON.parse(dbJsonRaw.toString())
+const users: User[] = dbJson.users
+
+const url = process.env.API_BASE_URL ?? "http://localhost";
+const port = process.env.API_PORT ?? 3300;
 // const dbJson = readFileSync(dbJsonPath)
 // const users: User[] = JSON.parse(dbJson.toString()).users
 
-app.get('/api', (request, response) => {
-    return response.status(200).send('<h1>Api Base Url</h1>')
+app.get("/api", (request, response) => {
+  return response.status(200).send("<h1>Api Base Url</h1>");
+});
+
+app.post('/api/sessions', (request, response) => {
+  const { email, password }: SessionCreateDTO = request.body
+
+  const foundUser = users.find(user => user?.email === email)
+
+  if (!foundUser) {
+    return response.status(400).json('Combinação de usuário e senha incorreta')
+  }
+
+  if (foundUser.passwordHash !== password) {
+    return response.status(400).json('Combinação de usuário e senha incorreta')
+  }
+  
+  const jwtSecret = process.env.JWT_SECRET ?? ''
+  const userToken = sign({ id: foundUser.id, email }, jwtSecret)
+
+  return response.json({token: userToken})
 })
 
-app.use(userRoutes)
+app.use(authMiddleware);
 
-app.listen(port,() => {
-    console.log(`Servidor rodando no endereço ${url}:${port}`)
-})
+app.use(userRoutes);
+
+app.listen(port, () => {
+  console.log(`Servidor rodando no endereço ${url}:${port}`);
+});

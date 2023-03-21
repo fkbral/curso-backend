@@ -5,10 +5,12 @@ import { writeFile } from 'fs/promises'
 import path from 'path'
 import { readFileSync } from 'fs'
 
-type User = {
+export type User = {
     id: string
     name: string
     age: number
+    email?: string
+    passwordHash?: string
 }
 
 // interface ICreateUserDTO {

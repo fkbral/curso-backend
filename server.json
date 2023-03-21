@@ -1,1 +1,39 @@
-{"users":[{"id":"9a539820-810c-48f4-8191-c0a0b3f76887","name":"Ciclano","age":35},{"id":"15baf912-edde-4bf1-9ec6-bf1f46734611","name":"Joaquina","age":18},{"id":"51f233d9-5b74-4888-acd5-7e5547a0b31f","name":"Josefa","age":28}]}
+{
+  "users": [
+    {
+      "id": "9a539820-810c-48f4-8191-c0a0b3f76887",
+      "name": "Ciclano",
+      "age": 35,
+      "email": "ciclano@gmail.com",
+      "passwordHash": "teste1"
+    },
+    {
+      "id": "15baf912-edde-4bf1-9ec6-bf1f46734611",
+      "name": "Joaquina",
+      "age": 18,
+      "email": "quina@gmail.com",
+      "passwordHash": "teste2"
+    },
+    {
+      "id": "51f233d9-5b74-4888-acd5-7e5547a0b31f",
+      "name": "Josefa",
+      "age": 28,
+      "email": "sefa@gmail.com",
+      "passwordHash": "teste3"
+    },
+    {
+      "id": "18b707f6-4a9a-4a65-8288-a3b46d17e478",
+      "name": "Rodrigo",
+      "age": 28,
+      "email": "dri@gmail.com",
+      "passwordHash": "teste4"
+    },
+    {
+      "id": "54e46a0f-4acb-418e-aa7f-b5b036b68713",
+      "name": "Jonas",
+      "age": 22,
+      "email": "jo@gmail.com",
+      "passwordHash": "teste5"
+    }
+  ]
+}
