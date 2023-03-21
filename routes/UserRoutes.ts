@@ -1,8 +1,9 @@
+// import dbJson from '.././server.json'
 import {Router} from 'express'
 import { randomUUID } from 'crypto'
-import dbJson from '.././server.json'
 import { writeFile } from 'fs/promises'
 import path from 'path'
+import { readFileSync } from 'fs'
 
 type User = {
     id: string
@@ -18,7 +19,9 @@ type User = {
 type CreateUserDTO = Omit<User, "id"> 
 
 const dbJsonPath = path.resolve(process.cwd(), 'server.json')
-const users = dbJson.users
+const dbJsonRaw = readFileSync(dbJsonPath)
+const dbJson = JSON.parse(dbJsonRaw.toString())
+const users: User[] = dbJson.users
 const userRoutes = Router()
 
 userRoutes.get('/api/users', (request, response) => {
