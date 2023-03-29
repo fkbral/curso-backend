@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import 'express-async-errors';
 import { config } from "dotenv";
 import path from "path";
 import { User, userRoutes } from "./routes/UserRoutes";
@@ -7,6 +8,7 @@ import { loggerMiddleware } from "./middlewares/logger";
 import { authMiddleware } from "./middlewares/auth";
 import { sign } from "jsonwebtoken";
 import { readFileSync } from "fs";
+import { errorMiddleware } from "./middlewares/error";
 
 config();
 const app = express();
@@ -57,6 +59,8 @@ app.post('/api/sessions', (request, response) => {
 app.use(authMiddleware);
 
 app.use(userRoutes);
+
+app.use(errorMiddleware)
 
 app.listen(port, () => {
   console.log(`Servidor rodando no endereço ${url}:${port}`);

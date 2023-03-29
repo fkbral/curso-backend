@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+import { UnauthorizedError } from "../errors/unauthorized";
 
 export const authMiddleware = (
   request: Request,
@@ -12,7 +13,7 @@ export const authMiddleware = (
   const tokenWithBearer = headers.authorization
 
   if(!tokenWithBearer) {
-      return response.status(401).send('Erro de autenticação: token não enviado')
+    throw new UnauthorizedError('Erro de autenticação: token não enviado')
   }
 
   const [, token] = tokenWithBearer.split(' ')
