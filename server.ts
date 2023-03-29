@@ -9,6 +9,7 @@ import { authMiddleware } from "./middlewares/auth";
 import { sign } from "jsonwebtoken";
 import { readFileSync } from "fs";
 import { errorMiddleware } from "./middlewares/error";
+import { BadRequestError } from "./errors/badRequest";
 
 config();
 const app = express();
@@ -43,11 +44,11 @@ app.post('/api/sessions', (request, response) => {
   const foundUser = users.find(user => user?.email === email)
 
   if (!foundUser) {
-    return response.status(400).json('Combinação de usuário e senha incorreta')
+    throw new BadRequestError('Combinação de usuário e senha incorreta')
   }
 
   if (foundUser.passwordHash !== password) {
-    return response.status(400).json('Combinação de usuário e senha incorreta')
+    throw new BadRequestError('Combinação de usuário e senha incorreta')
   }
   
   const jwtSecret = process.env.JWT_SECRET ?? ''
