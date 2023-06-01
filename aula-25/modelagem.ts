@@ -10,9 +10,17 @@ type Customer = {
 type Order = {
     id: string
     createdAt: Date,
+    updatedAt: Date,
+    deletedAt?: Date,
     deliveryId: string
     customerId: string
-    products: Product[]
+    products: OrderProduct[]
+}
+
+type OrderProduct = {
+    order_id: string
+    product_id: string
+    quantity: number
 }
 
 type Delivery = {
