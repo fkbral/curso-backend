@@ -9,7 +9,7 @@ type Customer = {
 
 type Order = {
     id: string
-    orderDate: Date,
+    createdAt: Date,
     deliveryId: string
     customerId: string
     products: Product[]
@@ -19,11 +19,13 @@ type Delivery = {
     id: string
     type: 'sedex' | 'default',
     status: 'waiting-pickup' | 'in-progress' | 'done' | 'failed',
+    orderId: string
 }
 
 type Product = {
     id: string
     name: string
+    unitPriceInBRL: number
     categoryId: string
     category?: Category
     order?: Order[]
