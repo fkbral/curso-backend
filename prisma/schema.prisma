@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id       String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name     String?    @db.VarChar(100)
+  type     String?    @db.VarChar(50)
+  products products[]
+}
+
+model customers {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  name    String?  @db.VarChar(255)
+  email   String?  @db.VarChar(120)
+  address String?  @db.VarChar(255)
+  orders  orders[]
+}
+
+model deliveries {
+  id     String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  type   String?  @db.VarChar(25)
+  status String?  @db.VarChar(40)
+  orders orders[]
+}
+
+model order_products {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product_id String    @db.Uuid
+  order_id   String    @db.Uuid
+  quantity   Int?      @default(1)
+  created_at DateTime? @default(now()) @db.Date
+  updated_at DateTime? @default(now()) @db.Date
+  deleted_at DateTime? @db.Date
+  orders     orders    @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products   products  @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model orders {
+  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  delivery_id    String?          @db.Uuid
+  customer_id    String?          @db.Uuid
+  created_at     DateTime?        @default(now()) @db.Date
+  updated_at     DateTime?        @default(now()) @db.Date
+  deleted_at     DateTime?        @db.Date
+  order_products order_products[]
+  customers      customers?       @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  deliveries     deliveries?      @relation(fields: [delivery_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model products {
+  id                String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name              String?          @db.VarChar(255)
+  category_id       String?          @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  unit_price_in_brl Decimal?         @db.Decimal(10, 2)
+  order_products    order_products[]
+  categories        categories?      @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
