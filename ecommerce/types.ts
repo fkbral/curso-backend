@@ -1,5 +1,7 @@
 import { randomUUID } from "crypto"
 import { z } from "zod"
+import { Category } from "./types/Category"
+import { Product } from "./types/Product"
 
 export const CustomerSchema = z.object({
     id: z.string().uuid({message: 'O id precisa ser um UUID'}),
@@ -41,21 +43,6 @@ export type Delivery = {
     orderId: string
 }
 
-export type Product = {
-    id: string
-    name: string
-    unitPriceInBRL: number
-    categoryId: string
-    category?: Category
-    order?: Order[]
-}
-
-export type Category = {
-    id: string
-    name: string
-    type: 'sports' | 'houseware' | 'electronics'
-}
-
 const category1 : Category = {
     id: randomUUID(),
     name: 'computers',
@@ -84,12 +71,14 @@ const product1: Product = {
     id: randomUUID(),
     name: 'Mx Master 3',
     categoryId: category3.id,
+    unitPriceInBRL: 100,
 }
 
 const product2: Product = {
     id: randomUUID(),
     name: 'Mx Keys',
     categoryId: category4.id,
+    unitPriceInBRL: 400,
 }
 
 const customer1: Customer = {

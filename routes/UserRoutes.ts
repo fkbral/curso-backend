@@ -6,7 +6,7 @@ import path from "path";
 import { readFileSync } from "fs";
 import { z } from "zod";
 import { MethodNotAllowedError } from "../errors/methodNotAllowed";
-import { NotFoundError } from "../errors/NotFoundError";
+import { NotFoundError } from "../errors/notFoundError";
 
 const UserSchema = z.object({
   id: z.string().uuid(),
