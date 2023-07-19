@@ -1,0 +1,13 @@
+version: "3.1"
+services:
+  mongodb:
+    build: ./mongodb_rs
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_DATABASE: ecommerce
+      MONGO_REPLICA_HOST: localhost
+      MONGO_REPLICA_PORT: "27017"
+    ports:
+      - 27017:27017

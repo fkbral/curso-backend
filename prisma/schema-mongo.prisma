@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL_NO_SQL")
+}
+
+model categories {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  name     String?
+  type     String?
+  products products[]
+}
+
+model customers {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  name    String?
+  email   String?
+  address String?
+  orders  orders[]
+}
+
+model deliveries {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  type   String?
+  status String?
+  orders orders[]
+}
+
+model order_products {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  product_id String    @db.ObjectId
+  order_id   String    @db.ObjectId
+  quantity   Int?      @default(1)
+  created_at DateTime? @default(now()) @db.Date
+  updated_at DateTime? @default(now()) @db.Date
+  deleted_at DateTime? @db.Date
+  orders     orders    @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products   products  @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model orders {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  delivery_id    String?          @db.ObjectId
+  customer_id    String?          @db.ObjectId
+  created_at     DateTime?        @default(now()) @db.Date
+  updated_at     DateTime?        @default(now()) @db.Date
+  deleted_at     DateTime?        @db.Date
+  order_products order_products[]
+  customers      customers?       @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  deliveries     deliveries?      @relation(fields: [delivery_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model products {
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String?
+  category_id       String?          @db.ObjectId
+  unit_price_in_brl Float?           @db.Double()
+  order_products    order_products[]
+  category          categories?      @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
