@@ -1,7 +1,7 @@
 import { prismaClient } from "../../prismaClient";
 import { CreateCostumer, Costumer } from "../../types/Costumer";
 
-interface ICostumersRepository {
+export interface ICostumersRepository {
     create: (data: CreateCostumer) => Promise<Costumer>
 }
 

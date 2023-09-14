@@ -3,6 +3,7 @@ import { prismaClient } from "../prismaClient";
 import { BadRequestError, NotFoundError } from "../../errors";
 import { CreateCostumer, CreateCostumerSchema, UpdateCostumer } from "../types/Costumer";
 import { CreateCustomerUseCase } from "../useCases/costumers/CreateCostumer";
+import { CostumersRepository } from "../repositories/costumers/CostumersRepository";
 
 export const customerRouter = Router()
 
@@ -26,8 +27,10 @@ customerRouter.get("/customers", async (request, response) => {
     try {
     const data: CreateCostumer = request.body;
     CreateCostumerSchema.parse(data);
-    
-    const createCustomerUseCase = new CreateCustomerUseCase()
+    const costumersRepository = new CostumersRepository()
+
+
+    const createCustomerUseCase = new CreateCustomerUseCase(costumersRepository)
     const customer = await createCustomerUseCase.execute(data)
 
     return response.json(customer);
