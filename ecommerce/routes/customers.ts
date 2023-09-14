@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { prismaClient } from "../prismaClient";
 import { BadRequestError, NotFoundError } from "../../errors";
-import { CreateCustomer, UpdateCustomer } from "../types";
+import { CreateCostumer, CreateCostumerSchema, UpdateCostumer } from "../types/Costumer";
+import { CreateCustomerUseCase } from "../useCases/costumers/CreateCostumer";
 
 export const customerRouter = Router()
 
@@ -22,14 +23,22 @@ customerRouter.get("/customers", async (request, response) => {
   });
   
   customerRouter.post("/customers", async (request, response) => {
-    const data: CreateCustomer = request.body;
-    const customer = await prismaClient.customers.create({ data });
+    try {
+    const data: CreateCostumer = request.body;
+    CreateCostumerSchema.parse(data);
+    
+    const createCustomerUseCase = new CreateCustomerUseCase()
+    const customer = await createCustomerUseCase.execute(data)
+
     return response.json(customer);
+  } catch (error) {
+    throw error
+  }
   });
   
   customerRouter.put("/customers/:id", async (request, response) => {
     const id = request.params.id;
-    const data: UpdateCustomer = request.body;
+    const data: UpdateCostumer = request.body;
   
   //   const customerExists = await prismaClient.customers.findUnique({where: {id}})
   
@@ -47,7 +56,7 @@ customerRouter.get("/customers", async (request, response) => {
   
   customerRouter.delete("/customers/:id", async (request, response) => {
       const id = request.params.id;
-      const data: UpdateCustomer = request.body;
+      const data: UpdateCostumer = request.body;
     
       const customerExists = await prismaClient.customers.findUnique({where: {id}})
     

@@ -3,23 +3,6 @@ import { z } from "zod"
 import { Category } from "./types/Category"
 import { Product } from "./types/Product"
 
-export const CustomerSchema = z.object({
-    id: z.string().uuid({message: 'O id precisa ser um UUID'}),
-    name: z.string().optional(),
-    email: z.string().optional(),
-    address: z.string().optional(),
-})
-
-export const CreateCustomerSchema = CustomerSchema.pick({
-    name: true,
-    email: true,
-    address: true
-})
-
-export type Customer = z.infer<typeof CustomerSchema>
-export type CreateCustomer = z.infer<typeof CreateCustomerSchema>
-export type UpdateCustomer = z.infer<typeof CreateCustomerSchema>
-
 export type Order = {
     id: string
     createdAt: Date,

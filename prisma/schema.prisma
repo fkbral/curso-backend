@@ -20,6 +20,8 @@ model customers {
   name    String?  @db.VarChar(255)
   email   String?  @db.VarChar(120)
   address String?  @db.VarChar(255)
+  cpf String  @db.VarChar(255)
+  birthday DateTime
   orders  orders[]
 }
 
