@@ -6,7 +6,7 @@ export const CostumerSchema = z.object({
     email: z.string().email().nullish(),
     address: z.string().nullish(),
     cpf: z.string(),
-    birthday: z.date()
+    birthday: z.coerce.date()
 })
 
 export const CreateCostumerSchema = CostumerSchema.pick({

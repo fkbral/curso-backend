@@ -61,6 +61,7 @@ model products {
   name              String?          @db.VarChar(255)
   category_id       String?          @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   unit_price_in_brl Decimal?         @db.Decimal(10, 2)
+  quantity_in_stock Int @default(0)
   order_products    order_products[]
   category        categories?      @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

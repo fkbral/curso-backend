@@ -4,6 +4,7 @@ import { BadRequestError, NotFoundError } from "../../errors";
 import { CreateCostumer, CreateCostumerSchema, UpdateCostumer } from "../types/Costumer";
 import { CreateCustomerUseCase } from "../useCases/costumers/CreateCostumer";
 import { CostumersRepository } from "../repositories/costumers/CostumersRepository";
+import { container } from "tsyringe";
 
 export const customerRouter = Router()
 
@@ -27,10 +28,9 @@ customerRouter.get("/customers", async (request, response) => {
     try {
     const data: CreateCostumer = request.body;
     CreateCostumerSchema.parse(data);
-    const costumersRepository = new CostumersRepository()
 
+    const createCustomerUseCase = container.resolve(CreateCustomerUseCase)
 
-    const createCustomerUseCase = new CreateCustomerUseCase(costumersRepository)
     const customer = await createCustomerUseCase.execute(data)
 
     return response.json(customer);

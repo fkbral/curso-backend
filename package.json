@@ -45,6 +45,8 @@
     "jsonwebtoken": "^9.0.0",
     "luxon": "^3.2.1",
     "prompt-sync": "^4.2.0",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.8.0",
     "zod": "^3.21.4"
   }
 }

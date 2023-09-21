@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+import './di'
 import express from "express";
 import "express-async-errors";
 import { config } from "dotenv";

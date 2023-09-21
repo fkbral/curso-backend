@@ -6,6 +6,7 @@ export const ProductSchema = z.object({
     name: z.string(),
     unitPriceInBRL: z.number(),
     categoryId: z.string().uuid(),
+    quantityInStock: z.number()
 })
 
 export const CreateProductSchema = ProductSchema.pick({

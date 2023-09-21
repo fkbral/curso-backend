@@ -2,12 +2,17 @@ import { DateTime } from "luxon";
 import { CreateCostumer } from "../../types/Costumer";
 import { BadRequestError } from "../../../errors";
 import { ICostumersRepository } from '../../repositories/costumers/CostumersRepository'
+import { injectable, inject } from 'tsyringe'
 
+@injectable()
 export class CreateCustomerUseCase {
-  constructor(private costumerRepository: ICostumersRepository) {}
+  constructor(
+    @inject(ICostumersRepository)
+    private costumerRepository: ICostumersRepository
+    ) {}
 
   async execute(data: CreateCostumer) {
-    const birthdayDateParsed = DateTime.fromJSDate(data.birthday);
+    const birthdayDateParsed = DateTime.fromJSDate(typeof data.birthday === 'string' ? new Date(data.birthday) : data.birthday);
     const now = DateTime.now();
 
     const ellapsedTime = now.diff(birthdayDateParsed, ["years"]);

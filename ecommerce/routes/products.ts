@@ -8,7 +8,6 @@ export const productsRouter = Router()
 const url = "/products"
 
 productsRouter.get(`${url}`, async (request, response) => {
-    try {
       const products = await prismaClient.products.findMany({
         select: {
           id: true,
@@ -38,9 +37,7 @@ productsRouter.get(`${url}`, async (request, response) => {
       }
 
       return response.json(products);
-    } catch (error) {
-      throw new ServerError();
-    }
+   
   });
 
 productsRouter.get(`${url}/:id`, async (request, response) => {
