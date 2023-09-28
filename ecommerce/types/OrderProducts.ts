@@ -4,10 +4,10 @@ export const OrderProductSchema = z.object({
   id: z.string(),
   productId: z.string(),
   orderId: z.string(),
-  quantity: z.number().optional().default(0),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  deletedAt: z.date(),
+  quantity: z.number().optional().default(1),
+  createdAt: z.date().nullish(),
+  updatedAt: z.date().nullish(),
+  deletedAt: z.date().nullish(),
   // orders     : orders
   // products   : products
 });

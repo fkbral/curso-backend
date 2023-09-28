@@ -34,14 +34,14 @@ model deliveries {
 
 model order_products {
   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  product_id String    @db.Uuid
-  order_id   String    @db.Uuid
-  quantity   Int?      @default(1)
-  created_at DateTime? @default(now()) @db.Date
-  updated_at DateTime? @default(now()) @db.Date
-  deleted_at DateTime? @db.Date
-  orders     orders    @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  products   products  @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  productId String    @db.Uuid @map("product_id")
+  orderId    String    @db.Uuid @map("order_id")
+  quantity   Int      @default(1)
+  createdAt DateTime? @default(now()) @db.Date @map("created_at")
+  updatedAt  DateTime? @default(now()) @db.Date @map("updated_at")
+  deletedAt DateTime? @db.Date @map("deleted_at")
+  orders     orders    @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products   products  @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model orders {
@@ -58,10 +58,10 @@ model orders {
 
 model products {
   id                String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String?          @db.VarChar(255)
-  category_id       String?          @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  unit_price_in_brl Decimal?         @db.Decimal(10, 2)
-  quantity_in_stock Int @default(0)
+  name              String          @db.VarChar(255)
+  categoryId       String          @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("category_id")
+  unitPriceInBRL Decimal         @db.Decimal(10, 2) @map("unit_price_in_brl")
+  quantityInStock Int @default(0)  @map("quantity_in_stock")
   order_products    order_products[]
-  category        categories?      @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  category        categories?      @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

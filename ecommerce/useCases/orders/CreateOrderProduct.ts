@@ -1,15 +1,14 @@
 import { injectable, inject } from 'tsyringe'
 import { CreateOrderProduct } from "../../types/OrderProducts";
 import { BadRequestError } from '../../../errors';
-import { IOrderProductsRepository, IProductsRepository, ProductsRepository } from '../../di/fakes';
-
-type IOrderProductsRepository = {}
+import { IProductsRepository, ProductsRepository } from '../../di/fakes';
+import { IOrderProductsRepository } from '../../repositories/orders/OrderProductsRepository';
 
 @injectable()
 export class CreateOrderProductUseCase {
   constructor(
     @inject(IOrderProductsRepository)
-    private ordersRepository: IOrderProductsRepository,
+    private orderProductsRepository: IOrderProductsRepository,
     @inject(IProductsRepository)
     private productsRepository: ProductsRepository,
     ) {}
@@ -22,8 +21,8 @@ export class CreateOrderProductUseCase {
       throw new BadRequestError('O produto não tem estoque suficiente')
     }
 
-    const order = {}
+    const orderProduct = await this.orderProductsRepository.create(data)
 
-    return order
+    return orderProduct
   }
 }
