@@ -3,17 +3,8 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import { CreateCustomerUseCase } from './CreateCostumer'
 import { BadRequestError } from '../../../errors'
 import { DateTime } from 'luxon'
-import { Costumer, CreateCostumer } from '../../types/Costumer'
-import { randomUUID } from 'crypto'
-import { ICostumersRepository } from '../../repositories/costumers/CostumersRepository'
 import { container } from 'tsyringe'
-
-export class FakeCostumersRepository implements ICostumersRepository {
-  async create (data: CreateCostumer) : Promise<Costumer> {
-    const costumer = {id: randomUUID(), ...data}
-    return costumer
-} ;
-}
+import { FakeCostumersRepository } from '../../repositories/costumers/FakeCostumersRepository'
 
 beforeAll(async () => {
   await import('../../di/fakes')

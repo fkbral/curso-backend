@@ -6,7 +6,9 @@
   "scripts": {
     "test": "vitest ecommerce",
     "dev": "ts-node-dev server.ts",
-    "dev:ecommerce": "tsnd ecommerce/server.ts",
+    "ecommerce:dev": "tsnd --respawn --transpile-only ecommerce/server.ts",
+    "ecommerce:build": "tsc",
+    "ecommerce:start": "node dist/ecommerce/server.js",
     "prisma:generate:mongo": "npx prisma generate --schema prisma/schema-mongo.prisma",
     "prisma:generate:postgres": "npx prisma generate",
     "prisma:migrate:postgres": "npx prisma migrate dev"

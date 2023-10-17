@@ -12,8 +12,8 @@ productsRouter.get(`${url}`, async (request, response) => {
         select: {
           id: true,
           name: true,
-          unit_price_in_brl: true,
-          category_id: true,
+          unitPriceInBRL: true,
+          categoryId: true,
           category: {
             select: {
               name: true,

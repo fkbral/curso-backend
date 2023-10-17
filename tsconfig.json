@@ -15,6 +15,12 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "resolveJsonModule": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  }
+    "emitDecoratorMetadata": true,
+    "outDir": "dist"
+  },
+  "exclude": [
+    "ecommerce/**/*spec.ts",
+    "ecommerce/types.ts"
+  ],
+  "include": ["ecommerce/**/*.ts"]
 }

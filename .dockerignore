@@ -1,0 +1,7 @@
+.env*
+.git
+.vscode
+dist
+aula-*
+docker-volumes
+node_modules

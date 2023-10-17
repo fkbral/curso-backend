@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.9"
 services:
   mongodb:
     build: ./mongodb_rs
@@ -11,3 +11,29 @@ services:
       MONGO_REPLICA_PORT: "27017"
     ports:
       - 27017:27017
+  postgresdb:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ecommerce
+    volumes:
+      - './docker-volumes/var/lib/postgresql:/var/lib/postgresql'
+    ports:
+      - 5437:5432
+  ecommerce_api:
+    depends_on:
+      - postgresdb
+    environment:
+      - JWT_SECRET=pisahjtgpiahwgpiwqehga-ieha hij-oqjt9y-hq3-9h
+      - API_PORT=3300
+      - API_BASE_URL=http://localhost
+      - DATABASE_URL=postgresql://postgres:password@postgresdb:5432/ecommerce?schema=public
+      - DATABASE_URL_NO_SQL=mongodb://admin:password@postgresdb:27017/ecommerce?- authSource=admin
+    build: 
+      context: .
+      dockerfile: ./ecommerce/Dockerfile
+    ports:
+      - 3300:3300
+

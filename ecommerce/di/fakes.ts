@@ -1,8 +1,8 @@
 import { container } from 'tsyringe'
 import { ICostumersRepository } from '../repositories/costumers/CostumersRepository'
-import { FakeCostumersRepository } from '../useCases/costumers/CreateCostumer.spec'
 import { Product } from '../types/Product'
 import { randomUUID } from 'crypto'
+import { FakeCostumersRepository } from '../repositories/costumers/FakeCostumersRepository'
 
 export class OrderProductsRepository {}
 export const IOrderProductsRepository = "IOrderProductsRepository"
