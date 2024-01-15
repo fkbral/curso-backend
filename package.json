@@ -50,6 +50,7 @@
     "prompt-sync": "^4.2.0",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.8.0",
+    "winston": "^3.11.0",
     "zod": "^3.21.4"
   }
 }
