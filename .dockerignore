@@ -5,3 +5,6 @@ dist
 aula-*
 docker-volumes
 node_modules
+mongodb_rs
+routes
+*.log
