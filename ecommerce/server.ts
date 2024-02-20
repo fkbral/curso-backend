@@ -11,7 +11,7 @@ import { customerRouter, categoriesRouter, productsRouter } from "./routes";
 config();
 export const app = express();
 const url = process.env.API_BASE_URL ?? "http://localhost";
-const port = process.env.API_PORT ?? 3300;
+const port = process.env.PORT ?? 3300;
 app.use(express.json());
 app.use(cors());
 app.use(loggerMiddleware);
