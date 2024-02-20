@@ -1,8 +1,8 @@
 import 'reflect-metadata'
+import { config } from "dotenv";
 import './di'
 import express from "express";
 import "express-async-errors";
-import { config } from "dotenv";
 import cors from "cors";
 import { loggerMiddleware } from "../middlewares/logger";
 import { errorMiddleware } from "../middlewares/error";
