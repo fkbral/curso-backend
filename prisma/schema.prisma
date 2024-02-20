@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -18,12 +18,12 @@ model categories {
 model customers {
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
-  name    String?  @db.VarChar(255)
-  email   String?  @db.VarChar(120)
-  address String?  @db.VarChar(255)
-  cpf String  @db.VarChar(255)
+  name     String?  @db.VarChar(255)
+  email    String?  @db.VarChar(120)
+  address  String?  @db.VarChar(255)
+  cpf      String   @db.VarChar(255)
   birthday DateTime
-  orders  orders[]
+  orders   orders[]
 }
 
 model deliveries {
@@ -34,35 +34,35 @@ model deliveries {
 }
 
 model order_products {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  productId String    @db.Uuid @map("product_id")
-  orderId    String    @db.Uuid @map("order_id")
-  quantity   Int      @default(1)
-  createdAt DateTime? @default(now()) @db.Date @map("created_at")
-  updatedAt  DateTime? @default(now()) @db.Date @map("updated_at")
-  deletedAt DateTime? @db.Date @map("deleted_at")
-  orders     orders    @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  products   products  @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId String    @map("product_id") @db.Uuid
+  orderId   String    @map("order_id") @db.Uuid
+  quantity  Int       @default(1)
+  createdAt DateTime? @default(now()) @map("created_at") @db.Date
+  updatedAt DateTime? @default(now()) @map("updated_at") @db.Date
+  deletedAt DateTime? @map("deleted_at") @db.Date
+  orders    orders    @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products  products  @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model orders {
   id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  delivery_id    String?          @db.Uuid
-  customer_id    String?          @db.Uuid
-  created_at     DateTime?        @default(now()) @db.Date
-  updated_at     DateTime?        @default(now()) @db.Date
-  deleted_at     DateTime?        @db.Date
+  deliveryId     String?          @map("delivery_id") @db.Uuid
+  customerId     String?          @map("customer_id") @db.Uuid
+  createdAt      DateTime?        @default(now()) @map("created_at") @db.Date
+  updatedAt      DateTime?        @default(now()) @map("updated_at") @db.Date
+  deletedAt      DateTime?        @map("deleted_at") @db.Date
   order_products order_products[]
-  customers      customers?       @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  deliveries     deliveries?      @relation(fields: [delivery_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  customers      customers?       @relation(fields: [customerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  deliveries     deliveries?      @relation(fields: [deliveryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model products {
-  id                String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name              String          @db.VarChar(255)
-  categoryId       String          @default(dbgenerated("gen_random_uuid()")) @db.Uuid @map("category_id")
-  unitPriceInBRL Decimal         @db.Decimal(10, 2) @map("unit_price_in_brl")
-  quantityInStock Int @default(0)  @map("quantity_in_stock")
-  order_products    order_products[]
+  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String           @db.VarChar(255)
+  categoryId      String           @default(dbgenerated("gen_random_uuid()")) @map("category_id") @db.Uuid
+  unitPriceInBRL  Decimal          @map("unit_price_in_brl") @db.Decimal(10, 2)
+  quantityInStock Int              @default(0) @map("quantity_in_stock")
+  order_products  order_products[]
   category        categories?      @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
