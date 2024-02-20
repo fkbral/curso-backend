@@ -27,5 +27,9 @@ app.use(productsRouter)
 app.use(errorMiddleware);
 
 app.listen(port, () => {
-  console.log(`Servidor rodando no endereço ${url}:${port}`);
+  console.log(
+    process.env.NODE_ENV === 'production' 
+    ? `Servidor rodando no endereço ${url}`
+    : `Servidor rodando no endereço ${url}:${port}`
+  );
 });
