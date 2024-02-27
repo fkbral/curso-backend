@@ -1,0 +1,12 @@
+{
+    "entryFile": "ecommerce/server.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "controllerPathGlobs": ["ecommerce/routes/*route.ts"],
+    "spec": {
+      "outputDirectory": "ecommerce/tsoa",
+      "specVersion": 3
+    },
+    "routes": {
+      "routesDir": "ecommerce/tsoa"
+    }
+  }

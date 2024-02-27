@@ -1,0 +1,151 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"categories": {
+				"properties": {
+					"type": {
+						"type": "string",
+						"nullable": true
+					},
+					"name": {
+						"type": "string",
+						"nullable": true
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"name",
+					"id"
+				],
+				"type": "object",
+				"description": "Model categories"
+			},
+			"CreateCategory": {
+				"properties": {
+					"type": {
+						"type": "string",
+						"enum": [
+							"sports",
+							"apparel",
+							"electronics",
+							"furniture",
+							"garden",
+							"health care",
+							"houseware"
+						]
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"name"
+				],
+				"type": "object"
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "aula-01",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/categories": {
+			"get": {
+				"operationId": "GetCategories",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/categories"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/categories"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateCategory"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/categories/{categoryId}": {
+			"get": {
+				"operationId": "GetCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/categories"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "categoryId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
