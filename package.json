@@ -4,7 +4,7 @@
   "description": "",
   "main": "arquivo.js",
   "scripts": {
-    "test": "vitest ecommerce --watch=false",
+    "test": "vitest ecommerce --watch=false maxWorkers=3",
     "dev": "ts-node-dev server.ts",
     "ecommerce:dev": "tsnd --respawn --transpile-only ecommerce/server.ts",
     "ecommerce:build": "tsc",
