@@ -1,0 +1,17 @@
+name: Pull request validation
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "installing nodejs"
+        uses: actions/setup-node@v1
+      - name: "installing dependencies"
+        run: npm install
+      - name: "running tests"
+        run: sh test-script.sh
