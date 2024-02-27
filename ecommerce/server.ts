@@ -7,6 +7,9 @@ import cors from "cors";
 import { loggerMiddleware } from "../middlewares/logger";
 import { errorMiddleware } from "../middlewares/error";
 import { customerRouter, categoriesRouter, productsRouter } from "./routes";
+import { RegisterRoutes } from './tsoa/routes';
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './tsoa/swagger.json'
 
 config();
 export const app = express();
@@ -21,10 +24,13 @@ app.get("/", (request, response) => {
 });
 
 app.use(customerRouter)
-app.use(categoriesRouter)
+RegisterRoutes(app)
+// app.use(categoriesRouter)
 app.use(productsRouter)
 
 app.use(errorMiddleware);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, () => {
   console.log(

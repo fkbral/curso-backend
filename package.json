@@ -4,14 +4,15 @@
   "description": "",
   "main": "arquivo.js",
   "scripts": {
-    "test": "vitest ecommerce",
+    "test": "vitest ecommerce --watch=false --no-threads",
     "dev": "ts-node-dev server.ts",
     "ecommerce:dev": "tsnd --respawn --transpile-only ecommerce/server.ts",
     "ecommerce:build": "tsc",
     "ecommerce:start": "node dist/ecommerce/server.js",
     "prisma:generate:mongo": "npx prisma generate --schema prisma/schema-mongo.prisma",
     "prisma:generate:postgres": "npx prisma generate",
-    "prisma:migrate:postgres": "npx prisma migrate dev"
+    "prisma:migrate:postgres": "npx prisma migrate dev",
+    "build:docs": "npx tsoa spec-and-routes"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/luxon": "^3.3.2",
     "@types/node": "^18.14.6",
+    "@types/swagger-ui-express": "^4.1.6",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
@@ -49,6 +51,8 @@
     "luxon": "^3.2.1",
     "prompt-sync": "^4.2.0",
     "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^5.0.0",
+    "tsoa": "^6.0.1",
     "tsyringe": "^4.8.0",
     "winston": "^3.11.0",
     "zod": "^3.21.4"
